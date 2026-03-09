@@ -1,6 +1,6 @@
-# jarvis-bridge
+# Meta HA Bridge
 
-A WhatsApp-to-Home Assistant bridge. Send messages to a WhatsApp bot number and get responses from your Home Assistant conversation agent.
+A WhatsApp-to-Home Assistant bridge that connects your Home Assistant voice assistants to WhatsApp. Send messages to a WhatsApp bot number and get responses from your configured HA conversation agents.
 
 ## How It Works
 
@@ -26,12 +26,9 @@ A WhatsApp-to-Home Assistant bridge. Send messages to a WhatsApp bot number and 
 
 2. **Edit the config:**
    ```bash
-   cp config.yaml config.yaml  # already provided as a template
+   cp config.yaml.example config.yaml
    ```
-   Open `config.yaml` and fill in:
-   - `homeassistant.url` — your HA base URL (e.g. `http://192.168.1.100:8123`)
-   - `homeassistant.token` — a long-lived access token (HA → Profile → Security)
-   - `security.whitelisted_numbers` — phone numbers allowed to use the bot
+   Fill in your `homeassistant.url`, `homeassistant.token`, and `users`. Phone numbers must include the country code without the `+` prefix (e.g. `4512345678` for a Danish number).
 
 3. **Start the container:**
    ```bash
@@ -39,46 +36,31 @@ A WhatsApp-to-Home Assistant bridge. Send messages to a WhatsApp bot number and 
    ```
 
 4. **Scan the QR code:**
-   On first run, a QR code will appear in the terminal. Open WhatsApp on your phone → Settings → Linked Devices → Link a Device → scan the QR code.
+   On first run, a QR code will appear in the terminal. Open WhatsApp → Settings → Linked Devices → Link a Device → scan the QR code.
 
 5. **Send a test message:**
-   From a whitelisted number, send a message to the bot's WhatsApp number. You should receive a response from Home Assistant.
+   From a whitelisted number, send a message to the bot — either in a DM or a group chat.
+
+### DMs and Groups
+
+The bot reads messages from both direct messages and group chats. Authorization is based on the sender's phone number, not the chat type — if a whitelisted user sends a message in a group, the bot will respond using that user's configured HA agent. Messages from non-whitelisted numbers are ignored regardless of where they're sent.
 
 ### Health Check
 
-Send `!ping` to the bot — it will reply `pong` without contacting Home Assistant. This is useful to verify the bridge is running.
+Send `!ping` to the bot — it will reply `pong` without contacting Home Assistant.
 
-## Configuration Reference
+## Configuration
 
-See `config.yaml` for all options with inline documentation. Key settings:
-
-| Setting | Description |
-|---------|-------------|
-| `homeassistant.url` | HA base URL |
-| `homeassistant.token` | Long-lived access token |
-| `homeassistant.agent_id` | Conversation agent ID (empty = default) |
-| `homeassistant.language` | Response language code |
-| `whatsapp.bot_phone` | Bot's phone number |
-| `whatsapp.qr_method` | `terminal` or `file` |
-| `security.whitelisted_numbers` | Allowed sender numbers |
-| `security.ignore_non_whitelisted` | Silently ignore (`true`) or reply with error (`false`) |
-| `messages.command_prefix` | Only process messages starting with this prefix |
-| `messages.health_check_command` | Command that returns "pong" without hitting HA |
-| `logging.level` | `DEBUG`, `INFO`, `WARNING`, or `ERROR` |
+See `config.yaml.example` for all options.
 
 ## Running Without Docker
 
 ```bash
-# Install Node dependencies
 npm install
-
-# Install Python dependencies
 pip install -r requirements.txt
-
-# Run
 python3 main.py
 ```
 
 ## Session Persistence
 
-The WhatsApp session is stored in `.wwebjs_auth/`. This directory is volume-mounted in Docker so you only need to scan the QR code once. If you delete this directory, you'll need to re-scan.
+The WhatsApp session is stored in `.wwebjs_auth/`. This directory is volume-mounted in Docker so you only need to scan the QR code once.

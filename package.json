@@ -1,8 +1,8 @@
 {
-  "name": "jarvis-bridge-whatsapp",
+  "name": "meta-ha-bridge-whatsapp",
   "version": "1.0.0",
   "private": true,
-  "description": "WhatsApp Web bridge for jarvis-bridge",
+  "description": "WhatsApp Web bridge for Meta HA Bridge",
   "main": "whatsapp_bridge.js",
   "dependencies": {
     "whatsapp-web.js": "^1.26.0",

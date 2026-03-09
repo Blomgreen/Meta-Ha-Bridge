@@ -1,4 +1,4 @@
-"""Home Assistant Conversation API client for jarvis-bridge."""
+"""Home Assistant Conversation API client for Meta HA Bridge."""
 
 import logging
 from dataclasses import dataclass

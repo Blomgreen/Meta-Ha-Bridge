@@ -1,78 +1,31 @@
-# =============================================================================
-# jarvis-bridge Configuration
-# =============================================================================
-# Copy this file to config.yaml and fill in your values.
-
-# -----------------------------------------------------------------------------
-# Home Assistant Connection
-# -----------------------------------------------------------------------------
 homeassistant:
-  # Base URL of your Home Assistant instance (no trailing slash)
   url: "http://homeassistant.local:8123"
-
-  # Long-lived access token — generate one in HA under Profile → Security
   token: "YOUR_LONG_LIVED_ACCESS_TOKEN"
-
-  # Default conversation agent (used when a user has no agent_id set)
-  # Find agent IDs in HA → Settings → Voice Assistants
   default_agent_id: ""
-
-  # Default language (used when a user has no language set)
   default_language: "en"
 
-# -----------------------------------------------------------------------------
-# WhatsApp Settings
-# -----------------------------------------------------------------------------
 whatsapp:
-  # The phone number running the bot session (international format, no + prefix)
   bot_phone: "1234567890"
+  qr_method: "terminal"  # "terminal" or "file"
 
-  # QR code display method on first login: "terminal" or "file"
-  qr_method: "terminal"
-
-# -----------------------------------------------------------------------------
-# Users — Each whitelisted number and its settings
-# -----------------------------------------------------------------------------
-# Only numbers listed here can interact with the bot.
-# Each user can override agent_id and language, or omit them to use the
-# defaults defined under homeassistant above.
 users:
   "1234567890":
-    name: "Alice"                                   # friendly name (for logging)
-    agent_id: "conversation.alice_assistant"         # HA conversation agent for this user
-    language: "en"                                   # language for this user
-  # "0987654321":
-  #   name: "Bob"
-  #   agent_id: "conversation.bob_assistant"
-  #   language: "de"
+    name: "Alice"
+    agent_id: "conversation.alice_assistant"
+    language: "en"
+  "0987654321":
+    name: "Bob"
+    agent_id: "conversation.bob_assistant"
+    language: "de"
 
-# -----------------------------------------------------------------------------
-# Security
-# -----------------------------------------------------------------------------
 security:
-  # If true, messages from numbers not in "users" are silently ignored.
-  # If false, they receive a "not authorized" reply.
   ignore_non_whitelisted: true
 
-# -----------------------------------------------------------------------------
-# Message Handling
-# -----------------------------------------------------------------------------
 messages:
-  # Optional command prefix (e.g. "!" — only messages starting with it are processed)
   command_prefix: ""
-
-  # Health-check command — replies "pong" without contacting HA
   health_check_command: "!ping"
-
-  # Reply when HA doesn't understand the message
   no_intent_reply: "Sorry, I didn't understand that. Try rephrasing your request."
-
-  # Reply when HA is unreachable
   error_reply: "Home Assistant is currently unavailable. Please try again later."
 
-# -----------------------------------------------------------------------------
-# Logging
-# -----------------------------------------------------------------------------
 logging:
-  # Log level: DEBUG, INFO, WARNING, ERROR
   level: "INFO"

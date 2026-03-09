@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""jarvis-bridge — WhatsApp to Home Assistant bridge orchestrator."""
+"""Meta HA Bridge — WhatsApp to Home Assistant bridge orchestrator."""
 
 import asyncio
 import json
@@ -11,7 +11,7 @@ from pathlib import Path
 from config import load_config, AppConfig
 from ha_client import HAClient
 
-logger = logging.getLogger("jarvis-bridge")
+logger = logging.getLogger("meta-ha-bridge")
 
 # Path to the Node.js bridge script
 BRIDGE_SCRIPT = Path(__file__).parent / "whatsapp_bridge.js"
@@ -210,7 +210,7 @@ async def main():
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
-    logger.info("jarvis-bridge starting...")
+    logger.info("Meta HA Bridge starting...")
     bridge = WhatsAppBridge(config)
 
     # Graceful shutdown on SIGINT/SIGTERM
@@ -219,7 +219,7 @@ async def main():
         loop.add_signal_handler(sig, lambda: asyncio.create_task(bridge.stop()))
 
     await bridge.start()
-    logger.info("jarvis-bridge stopped.")
+    logger.info("Meta HA Bridge stopped.")
 
 
 if __name__ == "__main__":

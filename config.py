@@ -1,4 +1,4 @@
-"""Configuration loader and validation for jarvis-bridge."""
+"""Configuration loader and validation for Meta HA Bridge."""
 
 import logging
 import sys

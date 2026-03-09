@@ -1,5 +1,5 @@
 /**
- * whatsapp_bridge.js — WhatsApp Web bridge for jarvis-bridge.
+ * whatsapp_bridge.js — WhatsApp Web bridge for Meta HA Bridge.
  *
  * Communicates with the Python orchestrator via JSON lines on stdout/stdin.
  *

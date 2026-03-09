@@ -1,7 +1,7 @@
 services:
-  jarvis-bridge:
+  meta-ha-bridge:
     build: .
-    container_name: jarvis-bridge
+    container_name: meta-ha-bridge
     restart: unless-stopped
     volumes:
       # Persist WhatsApp session so you don't have to re-scan the QR code
