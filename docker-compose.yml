@@ -1,0 +1,15 @@
+services:
+  jarvis-bridge:
+    build: .
+    container_name: jarvis-bridge
+    restart: unless-stopped
+    volumes:
+      # Persist WhatsApp session so you don't have to re-scan the QR code
+      - wwebjs-auth:/app/.wwebjs_auth
+      # Mount your config file
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  wwebjs-auth:

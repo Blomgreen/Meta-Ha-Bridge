@@ -1,0 +1,12 @@
+{
+  "name": "jarvis-bridge-whatsapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WhatsApp Web bridge for jarvis-bridge",
+  "main": "whatsapp_bridge.js",
+  "dependencies": {
+    "whatsapp-web.js": "^1.26.0",
+    "qrcode-terminal": "^0.12.0",
+    "qrcode": "^1.5.4"
+  }
+}
