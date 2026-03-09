@@ -1,12 +1,15 @@
 {
-  "name": "meta-ha-bridge-whatsapp",
+  "name": "meta-ha-bridge",
   "version": "1.0.0",
   "private": true,
-  "description": "WhatsApp Web bridge for Meta HA Bridge",
-  "main": "whatsapp_bridge.js",
+  "description": "WhatsApp bridge for Home Assistant voice assistants",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "whatsapp-web.js": "^1.26.0",
+    "js-yaml": "^4.1.0",
     "qrcode-terminal": "^0.12.0",
-    "qrcode": "^1.5.4"
+    "whatsapp-web.js": "^1.26.0"
   }
 }
